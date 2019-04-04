@@ -21,7 +21,7 @@ function createCacheBustedRequest(url){
 
 this.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(currentCache.offline).then(function(cache) {
+    cache.open(currentCache.offline).then(function(cache) {
       return cache.addAll(recursos);
     })
   );
@@ -34,7 +34,7 @@ this.addEventListener('fetch', event => {
         event.respondWith(
           fetch(createCacheBustedRequest(event.request.url)).catch(error => {
               // Return the offline page
-              return caches.match(offlineUrl);
+              return cache.match(offlineUrl);
           })
     );
   }
