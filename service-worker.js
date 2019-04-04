@@ -4,7 +4,7 @@ var cacheVersion = 1;
 var currentCache = {
   offline: 'offline-cache' + cacheVersion
 };
-const offlineUrl = 'juego-offline.html';
+const offlineUrl = 'juego-offline';
 var recursos = ['juego.html','favicon.ico','juego.js', offlineUrl,'service-worker.js'];
 
 
