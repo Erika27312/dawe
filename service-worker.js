@@ -4,8 +4,8 @@ var cacheVersion = 1;
 var currentCache = {
   offline: 'offline-cache' + cacheVersion
 };
-const offlineUrl = 'juego-offline';
-var recursos = ['juego.html','favicon.ico','juego.js', offlineUrl,'service-worker.js'];
+const offlineUrl = 'juego-offline.html';
+var recursos = ['favicon.ico','juego.js', offlineUrl,'service-worker.js'];
 
 
 function createCacheBustedRequest(url){
@@ -32,7 +32,7 @@ this.addEventListener('fetch', event => {
   // so include a check for Accept: text/html header.
   if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
         event.respondWith(
-          fetch(createCacheBustedRequest(event.request)).catch(error => {
+          fetch(createCacheBustedRequest(event.request.url)).catch(error => {
               // Return the offline page
               return caches.match(offlineUrl);
           })
