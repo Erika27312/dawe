@@ -32,7 +32,7 @@ this.addEventListener('fetch', event => {
   // so include a check for Accept: text/html header.
   if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
         event.respondWith(
-          fetch(createCacheBustedRequest(event.request.url)).catch(error => {
+          fetch(createCacheBustedRequest(event.request)).catch(error => {
               // Return the offline page
               return caches.match(offlineUrl);
           })
