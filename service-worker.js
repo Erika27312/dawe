@@ -4,7 +4,7 @@ var cacheVersion = 1;
 var currentCache = {
   offline: 'offline-cache' + cacheVersion
 };
-const offlineUrl = 'juego-offline.html';
+const offlineUrl = 'juego-offline';
 var recursos = ['favicon.ico','juego.js', offlineUrl,'service-worker.js'];
 
 
@@ -21,7 +21,7 @@ function createCacheBustedRequest(url){
 
 this.addEventListener('install', event => {
   event.waitUntil(
-    cache.open(currentCache.offline).then(function(cache) {
+    caches.open(currentCache.offline).then(function(cache) {
       return cache.addAll(recursos);
     })
   );
@@ -34,7 +34,8 @@ this.addEventListener('fetch', event => {
         event.respondWith(
           fetch(createCacheBustedRequest(event.request.url)).catch(error => {
               // Return the offline page
-              return cache.match(offlineUrl);
+              console.log(error);
+              return caches.match(offlineUrl);
           })
     );
   }
